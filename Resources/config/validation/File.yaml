@@ -1,0 +1,6 @@
+App\Bundle\FileBundle\Entity\File:
+  constraints:
+  properties:
+      file:
+          - File:
+              maxSize: 50M

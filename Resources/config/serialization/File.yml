@@ -1,0 +1,8 @@
+App\Bundle\FileBundle\Entity\File:
+    attributes:
+        id:
+            groups: ['read']
+        path:
+            groups: ['read']
+        mineType:
+            groups: ['read']

@@ -1,0 +1,20 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    App\Bundle\FileBundle\:
+        resource: '../../{Repository,DataFixtures,Command}'
+
+    App\Bundle\FileBundle\Controller\:
+        resource: '../../Controller'
+        tags: ['controller.service_arguments']
+
+    app_file.file_prefix_normalizer:
+        class: App\Bundle\FileBundle\Serializer\FilePrefixNormalizer
+        arguments:
+            - '@api_platform.serializer.normalizer.item'
+            - '@Vich\UploaderBundle\Templating\Helper\UploaderHelper'
+            - '@vich_uploader.metadata_reader'
+            - '%asset_url%'
