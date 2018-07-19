@@ -44,10 +44,7 @@ class FilePrefixNormalizer implements NormalizerInterface, SerializerAwareInterf
     public function normalize($object, $format = null, array $context = [])
     {
         $data = [];
-
-        if ($this->metadataReader->isUploadable(get_class($object))) {
-            $data = $this->addPrefix($object);
-        }
+        $data = $this->addPrefix($object);
 
         return  array_merge($this->decoratedNormalizer->normalize($object, $format, $context), $data);
     }
