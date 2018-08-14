@@ -17,4 +17,3 @@ services:
             - '@api_platform.serializer.normalizer.item'
             - '@Vich\UploaderBundle\Templating\Helper\UploaderHelper'
             - '@vich_uploader.metadata_reader'
-            - '%asset_url%'

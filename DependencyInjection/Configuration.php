@@ -23,14 +23,6 @@ final class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('app_file');
 
-
-        $rootNode
-            ->addDefaultsIfNotSet()
-            ->children()
-                ->scalarNode('asset_url')->end()
-            ->end()
-        ;
-
         return $treeBuilder;
     }
 }

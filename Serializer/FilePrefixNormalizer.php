@@ -26,19 +26,16 @@ class FilePrefixNormalizer implements NormalizerInterface, SerializerAwareInterf
 {
     private $uploaderHelper;
     private $metadataReader;
-    private $url;
     private $decoratedNormalizer;
 
     public function __construct(
         AbstractNormalizer $normailizer,
         UploaderHelper $uploaderHelper,
-        MetadataReader $metadataReader,
-        $url
+        MetadataReader $metadataReader
     ) {
         $this->decoratedNormalizer = $normailizer;
         $this->uploaderHelper = $uploaderHelper;
         $this->metadataReader = $metadataReader;
-        $this->url = $url;
     }
 
     public function normalize($object, $format = null, array $context = [])
@@ -56,8 +53,7 @@ class FilePrefixNormalizer implements NormalizerInterface, SerializerAwareInterf
         $fields = $this->metadataReader->getUploadableFields(get_class($object));
         foreach ($fields as $name => $field) {
             $property = strtolower(preg_replace('/[A-Z]/', '_\\0', lcfirst($field['fileNameProperty'])));
-            $path =  $this->uploaderHelper->asset($object, $name);
-            $data[$property] = $this->url. $path;  //如：model/test.png
+            $data[$property] = $this->uploaderHelper->asset($object, $name);  //如：model/test.png
         }
 
         return $data;
