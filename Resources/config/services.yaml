@@ -17,3 +17,15 @@ services:
             - '@api_platform.serializer.normalizer.item'
             - '@Vich\UploaderBundle\Templating\Helper\UploaderHelper'
             - '@vich_uploader.metadata_reader'
+
+    app.s3_client:
+        class: Aws\S3\S3Client
+        arguments:
+            -
+                version: 'latest'
+                region: "chengdu-1"
+                endpoint: "%env(MINIO_ENDPOINT)%"
+                use_path_style_endpoint: true
+                credentials:
+                    key: "%env(MINIO_ACCESS_KEY)%"
+                    secret: "%env(MINIO_SECRET_KEY)%"

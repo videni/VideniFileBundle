@@ -27,7 +27,7 @@ class File
      /**
      * @var \SplFileInfo
      *
-     * @Vich\UploadableField(mapping="default", fileNameProperty="path")
+     * @Vich\UploadableField(mapping="minio", fileNameProperty="path")
      */
     protected $file;
 
