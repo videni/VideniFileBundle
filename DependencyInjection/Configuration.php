@@ -23,6 +23,43 @@ final class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('app_file');
 
+        $this->addMetadataSection($rootNode);
+
+        $rootNode
+            ->children()
+                ->scalarNode('asset_endpoint')
+                    ->isRequired()
+                ->end();
+
         return $treeBuilder;
+    }
+
+    protected function addMetadataSection(ArrayNodeDefinition $node): void
+    {
+        $node
+            ->children()
+                ->arrayNode('metadata')
+                    ->addDefaultsIfNotSet()
+                    ->fixXmlConfig('directory', 'directories')
+                    ->children()
+                        ->scalarNode('cache')->defaultValue('file')->end()
+                        ->arrayNode('file_cache')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('dir')->defaultValue('%kernel.cache_dir%/vich_uploader')->end()
+                            ->end()
+                        ->end()
+                        ->booleanNode('auto_detection')->defaultTrue()->end()
+                        ->arrayNode('directories')
+                            ->prototype('array')
+                                ->children()
+                                    ->scalarNode('path')->isRequired()->end()
+                                    ->scalarNode('namespace_prefix')->defaultValue('')->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
     }
 }

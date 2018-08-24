@@ -1,3 +1,6 @@
+imports:
+    - { resource: mapping.yml }
+
 services:
     _defaults:
         autowire: true
@@ -11,8 +14,13 @@ services:
         resource: '../../Controller'
         tags: ['controller.service_arguments']
 
+    App\Bundle\FileBundle\Serializer\FileEndpointNormalizer:
+        arguments:
+            - '@App\Bundle\FileBundle\Metadata\MetadataReader'
+            - '%app_file.asset_endpoint%'
+
     app_file.file_prefix_normalizer:
-        class: App\Bundle\FileBundle\Serializer\FilePrefixNormalizer
+        class: App\Bundle\FileBundle\Serializer\FilePathNormalizer
         arguments:
             - '@api_platform.serializer.normalizer.item'
             - '@Vich\UploaderBundle\Templating\Helper\UploaderHelper'
