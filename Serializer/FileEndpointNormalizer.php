@@ -52,7 +52,9 @@ class FileEndpointNormalizer implements NormalizerInterface, SerializerAwareInte
         foreach ($fields as $name => $field) {
             $property = strtolower(preg_replace('/[A-Z]/', '_\\0', lcfirst($name)));
             if ($field['absolute']) {
-                $data[$property] = $this->assetEndpoint. $this->getPropertyAccessor()->getValue($object, $name);
+                // $data[$property] = $this->assetEndpoint. $this->getPropertyAccessor()->getValue($object, $name);
+                //@todo: remove following code
+                $data[$property] = '';
             }
         }
 
