@@ -2,13 +2,6 @@ services:
     app_file.metadata.file_locator:
         class: Metadata\Driver\FileLocator
 
-    App\Bundle\FileBundle\Metadata\Driver\AnnotationDriver:
-        arguments:
-            - '@annotation_reader'
-
-    app_file.metadata_driver:
-        alias: app_file.metadata_driver.chain
-
     app_file.metadata.cache.file_cache:
         class: Metadata\Cache\FileCache
 
@@ -21,7 +14,7 @@ services:
             - '@app_file.metadata_driver'
             - 'Metadata\ClassHierarchyMetadata'
         calls:
-            - [ setCache, [ '@app_file.metadata.cache' ] ]
+            - [ setCache, [ '@?app_file.metadata.cache' ] ]
 
     App\Bundle\FileBundle\Metadata\MetadataReader:
         arguments:
@@ -31,3 +24,10 @@ services:
         class: Metadata\Driver\DriverChain
         arguments:
             - ['@App\Bundle\FileBundle\Metadata\Driver\AnnotationDriver']
+
+    App\Bundle\FileBundle\Metadata\Driver\AnnotationDriver:
+        arguments:
+            - '@annotation_reader'
+
+    app_file.metadata_driver:
+        alias: app_file.metadata_driver.chain
