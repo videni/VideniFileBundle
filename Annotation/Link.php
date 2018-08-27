@@ -9,7 +9,7 @@ namespace App\Bundle\FileBundle\Annotation;
  */
 class Link
 {
-    protected $absolute = false;
+    protected $absolute = true;
 
     public function __construct(array $options)
     {
