@@ -18,6 +18,8 @@ services:
         arguments:
             - '@App\Bundle\FileBundle\Metadata\MetadataReader'
             - '%app_file.asset_endpoint%'
+        tags:
+            - { name: 'serializer.normalizer', priority: 32}
 
     app_file.file_prefix_normalizer:
         class: App\Bundle\FileBundle\Serializer\FilePathNormalizer
@@ -25,7 +27,8 @@ services:
             - '@api_platform.serializer.normalizer.item'
             - '@Vich\UploaderBundle\Templating\Helper\UploaderHelper'
             - '@vich_uploader.metadata_reader'
-
+        tags:
+            - { name: 'serializer.normalizer', priority: 32}
     app.s3_client:
         class: Aws\S3\S3Client
         arguments:
