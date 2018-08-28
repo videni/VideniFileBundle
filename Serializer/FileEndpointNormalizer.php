@@ -11,7 +11,7 @@ use Symfony\Component\PropertyAccess\PropertyAccessor;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 /**
- * 给链接添加域名
+ * 给文件链接添加域名
  */
 class FileEndpointNormalizer implements NormalizerInterface, SerializerAwareInterface
 {

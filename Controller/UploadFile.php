@@ -9,7 +9,6 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-
 use App\Bundle\FileBundle\Entity\File;
 use App\Bundle\SecurityBundle\Authentication\TokenAccessorInterface;
 
