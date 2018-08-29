@@ -17,9 +17,10 @@ services:
     App\Bundle\FileBundle\Serializer\FileEndpointNormalizer:
         arguments:
             - '@App\Bundle\FileBundle\Metadata\MetadataReader'
+            - '@Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter'
             - '%app_file.asset_endpoint%'
         tags:
-            - { name: 'serializer.normalizer', priority: 32}
+            - { name: 'serializer.normalizer', priority: 33}
 
     app_file.file_prefix_normalizer:
         class: App\Bundle\FileBundle\Serializer\FilePathNormalizer
