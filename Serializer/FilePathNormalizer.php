@@ -22,7 +22,7 @@ use Vich\UploaderBundle\Mapping\PropertyMappingFactory;
 /**
  * 给文件添加域名
  */
-class FilePathNormalizer implements NormalizerInterface, SerializerAwareInterface
+class FilePathNormalizer implements NormalizerInterface
 {
     private $uploaderHelper;
     private $metadataReader;
@@ -57,11 +57,6 @@ class FilePathNormalizer implements NormalizerInterface, SerializerAwareInterfac
         }
 
         return $data;
-    }
-
-    public function setSerializer(SerializerInterface $serializer)
-    {
-        $this->decoratedNormalizer->setSerializer($serializer);
     }
 
     public function supportsNormalization($object, $format = null)
