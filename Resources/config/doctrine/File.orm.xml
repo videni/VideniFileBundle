@@ -16,7 +16,9 @@
             <gedmo:timestampable on="update"/>
         </field>
 
-         <many-to-one target-entity="App\Bundle\UserBundle\Entity\User" field="owner"/>
+        <many-to-one target-entity="App\Bundle\UserBundle\Entity\User" field="owner">
+            <join-column name="owner_id" referenced-column-name="id" on-delete="SET NULL" />
+         </many-to-one>
     </entity>
 
 </doctrine-mapping>
