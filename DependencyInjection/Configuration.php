@@ -29,7 +29,9 @@ final class Configuration implements ConfigurationInterface
             ->children()
                 ->scalarNode('asset_endpoint')
                     ->isRequired()
-                ->end();
+                ->end()
+            ->end()
+        ;
 
         return $treeBuilder;
     }
@@ -46,7 +48,7 @@ final class Configuration implements ConfigurationInterface
                         ->arrayNode('file_cache')
                             ->addDefaultsIfNotSet()
                             ->children()
-                                ->scalarNode('dir')->defaultValue('%kernel.cache_dir%/vich_uploader')->end()
+                                ->scalarNode('dir')->defaultValue('%kernel.cache_dir%/app_file')->end()
                             ->end()
                         ->end()
                         ->booleanNode('auto_detection')->defaultTrue()->end()
