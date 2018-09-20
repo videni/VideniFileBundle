@@ -20,7 +20,7 @@ use Vich\UploaderBundle\Mapping\PropertyMapping;
 use Vich\UploaderBundle\Mapping\PropertyMappingFactory;
 
 /**
- * 给文件添加path
+ * 给带有Vich\UploaderBundle\Mapping\Annotation\Uploadable注解的类的属性添加path
  */
 class FilePathNormalizer implements NormalizerInterface
 {

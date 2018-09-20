@@ -11,20 +11,19 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
+use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 
 /**
- * 给文件链接添加域名
+ * 给Pintushi\Bundle\FileBundle\Annotation\File文件属性添加域名
  */
-class FileEndpointNormalizer implements NormalizerInterface, DenormalizerInterface, SerializerAwareInterface
+class FileEndpointNormalizer implements NormalizerInterface, SerializerAwareInterface
 {
-    private const FILE_ATTRIBUTE_DENORMALIZER_ALREADY_CALLED = 'FILE_ATTRIBUTE_DENORMALIZER_ALREADY_CALLED';
+    use SerializerAwareTrait;
 
     private $metadataReader;
-    private $serializer;
-    private $nameConverter;
     private $assetEndpoint;
+    private $nameConverter;
     private $called = [];
-
 
     /**
      * @var PropertyAccessor
@@ -65,11 +64,6 @@ class FileEndpointNormalizer implements NormalizerInterface, DenormalizerInterfa
         return $data;
     }
 
-    public function setSerializer(SerializerInterface $serializer)
-    {
-        $this->serializer = $serializer;
-    }
-
     public function supportsNormalization($object, $format = null)
     {
         if (!is_object($object)) {
@@ -83,32 +77,7 @@ class FileEndpointNormalizer implements NormalizerInterface, DenormalizerInterfa
         return $this->metadataReader->hasFile(get_class($object));
     }
 
-    public function denormalize($data, $class, $format = null, array $context = array())
-    {
-        $fields = $this->metadataReader->getLinks($class);
-        foreach ($fields as $name => $field) {
-            $property = $this->nameConverter->normalize($name);
-            if (isset($data[$property])) {
-                $position =   strpos($data[$property], $this->assetEndpoint);
-                $data[$property] = $position !== false? substr($data[$property], $position+strlen($this->assetEndpoint)) : $data[$property];
-            }
-        }
-
-        $context[self::FILE_ATTRIBUTE_DENORMALIZER_ALREADY_CALLED] = true;
-
-        return $this->serializer->denormalize($data, $class, $format, $context);
-    }
-
-    public function supportsDenormalization($data, $type, $format = null, array $context = array())
-    {
-        if (isset($context[self::FILE_ATTRIBUTE_DENORMALIZER_ALREADY_CALLED])) {
-            return false;
-        }
-
-        return class_exists($type) && $this->metadataReader->hasFile($type);
-    }
-
-     /**
+    /**
      * @return PropertyAccessor
      */
     private static function getPropertyAccessor()
