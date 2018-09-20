@@ -22,14 +22,13 @@ services:
         tags:
             - { name: 'serializer.normalizer', priority: 10}
 
-    App\Bundle\FileBundle\Serializer\FileEndpointDenormalizer:
+    App\Bundle\FileBundle\EventListener\FileEventListener:
         arguments:
-            - '@api_platform.serializer.normalizer.item'
             - '@App\Bundle\FileBundle\Metadata\MetadataReader'
-            - '@Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter'
             - '%app_file.asset_endpoint%'
         tags:
-            - { name: 'serializer.normalizer', priority: 10}
+          - { name: 'doctrine.event_listener', event: 'prePersist', lazy: true }
+          - { name: 'doctrine.event_listener', event: 'preUpdate', lazy: true }
 
     app_file.file_prefix_normalizer:
         class: App\Bundle\FileBundle\Serializer\FilePathNormalizer
