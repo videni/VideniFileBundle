@@ -8,6 +8,7 @@
             <generator strategy="AUTO" />
         </id>
         <field name="path" column="path" type="string" nullable="false" />
+        <field name="originalName" column="original_name" type="string" nullable="true" />
         <field name="mineType" column="mine_type" type="string" nullable="false" />
         <field name="createdAt" column="created_at" type="datetime">
             <gedmo:timestampable on="create"/>

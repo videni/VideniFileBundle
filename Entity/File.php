@@ -24,6 +24,8 @@ class File
 
     protected $mineType;
 
+    protected $originalName;
+
      /**
      * @var \SplFileInfo
      *
@@ -101,5 +103,25 @@ class File
     public function getOwner()
     {
         return $this->owner;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOriginalName()
+    {
+        return $this->originalName;
+    }
+
+    /**
+     * @param mixed $originalName
+     *
+     * @return self
+     */
+    public function setOriginalName($originalName)
+    {
+        $this->originalName = $originalName;
+
+        return $this;
     }
 }

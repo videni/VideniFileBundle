@@ -4,5 +4,7 @@ App\Bundle\FileBundle\Entity\File:
             groups: ['read']
         path:
             groups: ['read']
+        originalName:
+            groups: ['read']
         mineType:
             groups: ['read']

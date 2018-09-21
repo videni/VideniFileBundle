@@ -61,6 +61,7 @@ class UploadFile
         $file = new File();
         $file->setFile($uploadedFile)
             ->setMineType($uploadedFile->getMimeType())
+            ->setOriginalName($uploadedFile->getClientOriginalName())
         ;
         if ($this->tokenAccessor->hasUser()) {
             $file->setOwner($this->tokenAccessor->getUser());
