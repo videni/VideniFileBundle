@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Bundle\FileBundle\Metadata;
+namespace Videni\Bundle\FileBundle\Metadata;
 
 use Metadata\ClassMetadata as BaseClassMetadata;
 

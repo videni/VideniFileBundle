@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Bundle\FileBundle\Entity;
+namespace Videni\Bundle\FileBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Bundle\FileBundle\Serializer;
+namespace Videni\Bundle\FileBundle\Serializer;
 
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerAwareInterface;

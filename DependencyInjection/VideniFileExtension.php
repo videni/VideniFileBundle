@@ -1,14 +1,14 @@
 <?php
 
 
-namespace App\Bundle\FileBundle\DependencyInjection;
+namespace Videni\Bundle\FileBundle\DependencyInjection;
 
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 
-final class AppFileExtension extends Extension
+final class VideniFileExtension extends Extension
 {
     /**
      * {@inheritdoc}
@@ -21,7 +21,7 @@ final class AppFileExtension extends Extension
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yaml');
 
-        $container->setParameter('app_file.asset_endpoint', $config['asset_endpoint']);
+        $container->setParameter('videni_file.asset_endpoint', $config['asset_endpoint']);
 
         $this->registerCacheStrategy($container, $config);
     }
@@ -29,10 +29,10 @@ final class AppFileExtension extends Extension
     protected function registerCacheStrategy(ContainerBuilder $container, array $config): void
     {
         if ('none' === $config['metadata']['cache']) {
-            $container->removeAlias('app_file.metadata.cache');
+            $container->removeAlias('videni_file.metadata.cache');
         } elseif ('file' === $config['metadata']['cache']) {
             $container
-                ->getDefinition('app_file.metadata.cache.file_cache')
+                ->getDefinition('videni_file.metadata.cache.file_cache')
                 ->addArgument($config['metadata']['file_cache']['dir'])
             ;
 
@@ -41,7 +41,7 @@ final class AppFileExtension extends Extension
                 throw new \RuntimeException(sprintf('Could not create cache directory "%s".', $dir));
             }
         } else {
-            $container->setAlias('app_file.metadata.cache', new Alias($config['metadata']['cache'], false));
+            $container->setAlias('videni_file.metadata.cache', new Alias($config['metadata']['cache'], false));
         }
     }
 }

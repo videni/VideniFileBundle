@@ -1,4 +1,4 @@
-App\Bundle\FileBundle\Entity\File:
+Videni\Bundle\FileBundle\Entity\File:
   constraints:
   properties:
       file:

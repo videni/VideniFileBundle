@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Bundle\FileBundle\Annotation;
+namespace Videni\Bundle\FileBundle\Annotation;
 
 /**
  *

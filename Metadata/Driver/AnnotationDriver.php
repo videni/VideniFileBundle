@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Bundle\FileBundle\Metadata\Driver;
+namespace Videni\Bundle\FileBundle\Metadata\Driver;
 
 use Doctrine\Common\Annotations\Reader as AnnotationReader;
 use Metadata\Driver\AdvancedDriverInterface;
-use App\Bundle\FileBundle\Annotation\File;
-use App\Bundle\FileBundle\Annotation\Link;
-use App\Bundle\FileBundle\Metadata\ClassMetadata;
+use Videni\Bundle\FileBundle\Annotation\File;
+use Videni\Bundle\FileBundle\Annotation\Link;
+use Videni\Bundle\FileBundle\Metadata\ClassMetadata;
 
 class AnnotationDriver implements AdvancedDriverInterface
 {

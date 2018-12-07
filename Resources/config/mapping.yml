@@ -1,33 +1,33 @@
 services:
-    app_file.metadata.file_locator:
+    videni_file.metadata.file_locator:
         class: Metadata\Driver\FileLocator
 
-    app_file.metadata.cache.file_cache:
+    videni_file.metadata.cache.file_cache:
         class: Metadata\Cache\FileCache
 
-    app_file.metadata.cache:
-        alias:  app_file.metadata.cache.file_cache
+    videni_file.metadata.cache:
+        alias:  videni_file.metadata.cache.file_cache
 
-    app_file.metadata_factory:
+    videni_file.metadata_factory:
         class:  Metadata\MetadataFactory
         arguments:
-            - '@app_file.metadata_driver'
+            - '@videni_file.metadata_driver'
             - 'Metadata\ClassHierarchyMetadata'
         calls:
-            - [ setCache, [ '@?app_file.metadata.cache' ] ]
+            - [ setCache, [ '@?videni_file.metadata.cache' ] ]
 
-    App\Bundle\FileBundle\Metadata\MetadataReader:
+    Videni\Bundle\FileBundle\Metadata\MetadataReader:
         arguments:
-            - '@app_file.metadata_factory'
+            - '@videni_file.metadata_factory'
 
-    app_file.metadata_driver.chain:
+    videni_file.metadata_driver.chain:
         class: Metadata\Driver\DriverChain
         arguments:
-            - ['@App\Bundle\FileBundle\Metadata\Driver\AnnotationDriver']
+            - ['@Videni\Bundle\FileBundle\Metadata\Driver\AnnotationDriver']
 
-    App\Bundle\FileBundle\Metadata\Driver\AnnotationDriver:
+    Videni\Bundle\FileBundle\Metadata\Driver\AnnotationDriver:
         arguments:
             - '@annotation_reader'
 
-    app_file.metadata_driver:
-        alias: app_file.metadata_driver.chain
+    videni_file.metadata_driver:
+        alias: videni_file.metadata_driver.chain

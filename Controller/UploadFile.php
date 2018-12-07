@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Bundle\FileBundle\Controller;
+namespace Videni\Bundle\FileBundle\Controller;
 
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -9,7 +9,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use App\Bundle\FileBundle\Entity\File;
+use Videni\Bundle\FileBundle\Entity\File;
 use App\Bundle\SecurityBundle\Authentication\TokenAccessorInterface;
 
 class UploadFile

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Bundle\FileBundle\Serializer;
+namespace Videni\Bundle\FileBundle\Serializer;
 
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerAwareInterface;
 use Symfony\Component\Serializer\SerializerAwareTrait;
-use App\Bundle\FileBundle\Metadata\MetadataReader;
+use Videni\Bundle\FileBundle\Metadata\MetadataReader;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 use Symfony\Component\PropertyAccess\PropertyAccess;

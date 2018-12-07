@@ -7,31 +7,31 @@ services:
         autoconfigure: true
         public: false
 
-    App\Bundle\FileBundle\:
+    Videni\Bundle\FileBundle\:
         resource: '../../{Repository,DataFixtures,Command}'
 
-    App\Bundle\FileBundle\Controller\:
+    Videni\Bundle\FileBundle\Controller\:
         resource: '../../Controller'
         tags: ['controller.service_arguments']
 
-    App\Bundle\FileBundle\Serializer\FileEndpointNormalizer:
+    Videni\Bundle\FileBundle\Serializer\FileEndpointNormalizer:
         arguments:
-            - '@App\Bundle\FileBundle\Metadata\MetadataReader'
+            - '@Videni\Bundle\FileBundle\Metadata\MetadataReader'
             - '@Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter'
-            - '%app_file.asset_endpoint%'
+            - '%videni_file.asset_endpoint%'
         tags:
             - { name: 'serializer.normalizer', priority: 10}
 
-    App\Bundle\FileBundle\EventListener\FileEventListener:
+    Videni\Bundle\FileBundle\EventListener\FileEventListener:
         arguments:
-            - '@App\Bundle\FileBundle\Metadata\MetadataReader'
-            - '%app_file.asset_endpoint%'
+            - '@Videni\Bundle\FileBundle\Metadata\MetadataReader'
+            - '%videni_file.asset_endpoint%'
         tags:
           - { name: 'doctrine.event_listener', event: 'prePersist', lazy: true }
           - { name: 'doctrine.event_listener', event: 'preUpdate', lazy: true }
 
-    app_file.file_prefix_normalizer:
-        class: App\Bundle\FileBundle\Serializer\FilePathNormalizer
+    videni_file.file_prefix_normalizer:
+        class: Videni\Bundle\FileBundle\Serializer\FilePathNormalizer
         arguments:
             - '@api_platform.serializer.normalizer.item'
             - '@Vich\UploaderBundle\Templating\Helper\UploaderHelper'

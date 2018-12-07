@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Bundle\FileBundle\EventListener;
+namespace Videni\Bundle\FileBundle\EventListener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 use Symfony\Component\PropertyAccess\PropertyAccess;
-use App\Bundle\FileBundle\Metadata\MetadataReader;
+use Videni\Bundle\FileBundle\Metadata\MetadataReader;
 
 class FileEventListener
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Bundle\FileBundle\Metadata;
+namespace Videni\Bundle\FileBundle\Metadata;
 
 use Metadata\AdvancedMetadataFactoryInterface;
-use App\Bundle\FileBundle\Exception\MappingNotFoundException;
+use Videni\Bundle\FileBundle\Exception\MappingNotFoundException;
 
 /**
  * MetadataReader.

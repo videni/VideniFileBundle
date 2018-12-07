@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Bundle\FileBundle;
+namespace Videni\Bundle\FileBundle;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-final class AppFileBundle extends Bundle
+final class VideniFileBundle extends Bundle
 {
     /**
      * {@inheritdoc}
