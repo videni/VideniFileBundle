@@ -1,0 +1,14 @@
+{
+    "name": "videni/file-bundle",
+    "description": "Upload file with vich/uploader-bundle, make it easier for APIs with serialization",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "minimum-stability": "stable",
+    "require": {
+        "php": "^7.1",
+        "vich/uploader-bundle": "^1.8"
+    },
+    "autoload": {
+        "psr-4": { "App\\Bundle\\FileBundle\\": "" }
+    }
+}
