@@ -14,14 +14,6 @@ services:
         resource: '../../Controller'
         tags: ['controller.service_arguments']
 
-    Videni\Bundle\FileBundle\Serializer\FileEndpointNormalizer:
-        arguments:
-            - '@Videni\Bundle\FileBundle\Metadata\MetadataReader'
-            - '@Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter'
-            - '%videni_file.asset_endpoint%'
-        tags:
-            - { name: 'serializer.normalizer', priority: 10}
-
     Videni\Bundle\FileBundle\EventListener\FileEventListener:
         arguments:
             - '@Videni\Bundle\FileBundle\Metadata\MetadataReader'
@@ -30,23 +22,13 @@ services:
           - { name: 'doctrine.event_listener', event: 'prePersist', lazy: true }
           - { name: 'doctrine.event_listener', event: 'preUpdate', lazy: true }
 
-    videni_file.file_prefix_normalizer:
-        class: Videni\Bundle\FileBundle\Serializer\FilePathNormalizer
+    Videni\Bundle\FileBundle\Serializer\FileHelper:
         arguments:
-            - '@api_platform.serializer.normalizer.item'
             - '@Vich\UploaderBundle\Templating\Helper\UploaderHelper'
             - '@vich_uploader.metadata_reader'
-        tags:
-            - { name: 'serializer.normalizer', priority: 10}
+            - '@Videni\Bundle\FileBundle\Metadata\MetadataReader'
+            - '%videni_file.asset_endpoint%'
 
-    app.s3_client:
-        class: Aws\S3\S3Client
-        arguments:
-            -
-                version: 'latest'
-                region: "chengdu-1"
-                endpoint: "%env(MINIO_ENDPOINT)%"
-                use_path_style_endpoint: true
-                credentials:
-                    key: "%env(MINIO_ACCESS_KEY)%"
-                    secret: "%env(MINIO_SECRET_KEY)%"
+    Videni\Bundle\FileBundle\Serializer\FileNormalizer:
+        tags:
+            - { name: 'jms_serializer.event_subscriber' }

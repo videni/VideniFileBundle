@@ -30,6 +30,9 @@ final class Configuration implements ConfigurationInterface
                 ->scalarNode('asset_endpoint')
                     ->isRequired()
                 ->end()
+                ->scalarNode('user_entity_class')
+                    ->isRequired()
+                ->end()
             ->end()
         ;
 
@@ -48,7 +51,7 @@ final class Configuration implements ConfigurationInterface
                         ->arrayNode('file_cache')
                             ->addDefaultsIfNotSet()
                             ->children()
-                                ->scalarNode('dir')->defaultValue('%kernel.cache_dir%/app_file')->end()
+                                ->scalarNode('dir')->defaultValue('%kernel.cache_dir%/videni_file')->end()
                             ->end()
                         ->end()
                         ->booleanNode('auto_detection')->defaultTrue()->end()

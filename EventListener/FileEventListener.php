@@ -7,6 +7,10 @@ use Symfony\Component\PropertyAccess\PropertyAccessor;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Videni\Bundle\FileBundle\Metadata\MetadataReader;
 
+/**
+ * Remove host from entity file properties, the host will be added to
+ * these properties when when serialization
+ */
 class FileEventListener
 {
     private $nameConverter;

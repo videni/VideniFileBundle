@@ -10,34 +10,36 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Videni\Bundle\FileBundle\Entity\File;
-use App\Bundle\SecurityBundle\Authentication\TokenAccessorInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+use JMS\Serializer\SerializerInterface;
+use JMS\Serializer\SerializationContext;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class UploadFile
 {
     private $entityManager;
-    private $tokenAccessor;
+    private $tokenStorage;
     private $validator;
+    private $serializer;
 
     public function __construct(
         ObjectManager $entityManager,
-        TokenAccessorInterface  $tokenAccessor,
-        ValidatorInterface  $validator
+        TokenStorageInterface  $tokenStorage,
+        ValidatorInterface  $validator,
+        SerializerInterface  $serializer
     ) {
         $this->entityManager = $entityManager;
-        $this->tokenAccessor = $tokenAccessor;
+        $this->tokenStorage = $tokenStorage;
         $this->validator = $validator;
+        $this->serializer = $serializer;
     }
 
     /**
      * @Route(
-     *     name="api_upload_file",
+     *     name="videni_upload_file",
      *     path="/file/upload",
      *     methods={"POST"},
-     *     defaults={
-     *         "_api_receive"=false,
-     *         "_api_resource_class"=File::class,
-     *         "_api_item_operation_name"="upload_file",
-     *     }
      * )
      */
     public function __invoke(Request $request)
@@ -51,9 +53,12 @@ class UploadFile
             ]
         ]);
 
+        $response = new JsonResponse();
+
         $violations = $this->validator->validate($request->files->all(), $constraints);
         if (0 != count($violations)) {
-            return $violations;
+            return $response
+                ->setJson($this->serializer->serialize($violations), 'json');
         }
 
         $uploadedFile = $request->files->get('file');
@@ -63,13 +68,33 @@ class UploadFile
             ->setMineType($uploadedFile->getMimeType())
             ->setOriginalName($uploadedFile->getClientOriginalName())
         ;
-        if ($this->tokenAccessor->hasUser()) {
-            $file->setOwner($this->tokenAccessor->getUser());
+        if ($user = $this->getUser()) {
+            $file->setOwner($user);
         }
 
         $this->entityManager->persist($file);
         $this->entityManager->flush();
 
-        return $file;
+        $context = new  SerializationContext();
+
+        return $response
+            ->setJson($this->serializer->serialize($file, 'json', $context->setGroups(['Default'])));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    private function getUser()
+    {
+        $result = null;
+        $token = $this->tokenStorage->getToken();
+        if ($token instanceof TokenInterface) {
+            $user = $token->getUser();
+            if ($user instanceof UserInterface) {
+                $result = $user;
+            }
+        }
+
+        return $result;
     }
 }

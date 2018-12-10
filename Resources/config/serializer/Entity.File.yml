@@ -1,0 +1,21 @@
+Videni\Bundle\FileBundle\Entity\File:
+    exclusion_policy: ALL
+    xml_root_name: file
+    properties:
+        id:
+            expose: true
+            type: integer
+            xml_attribute: true
+            groups: [Default]
+        path:
+            expose: true
+            type: string
+            groups: [Default]
+        originalName:
+            expose: true
+            type: string
+            groups: [Default]
+        mineType:
+            expose: true
+            type: string
+            groups: [Default]

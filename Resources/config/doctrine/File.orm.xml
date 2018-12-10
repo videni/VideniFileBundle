@@ -1,25 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
-                  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
-
-    <entity name="Videni\Bundle\FileBundle\Entity\File" table="app_file">
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping">
+    <entity name="Videni\Bundle\FileBundle\Entity\File" table="videni_file">
         <id name="id" column="id" type="integer">
             <generator strategy="AUTO" />
         </id>
         <field name="path" column="path" type="string" nullable="false" />
         <field name="originalName" column="original_name" type="string" nullable="true" />
         <field name="mineType" column="mine_type" type="string" nullable="false" />
-        <field name="createdAt" column="created_at" type="datetime">
-            <gedmo:timestampable on="create"/>
-        </field>
-        <field name="updatedAt" column="updated_at" type="datetime" nullable="true">
-            <gedmo:timestampable on="update"/>
-        </field>
+        <field name="createdAt" column="created_at" type="datetime" />
 
-        <many-to-one target-entity="App\Bundle\UserBundle\Entity\User" field="owner">
+        <many-to-one target-entity="Symfony\Component\Security\Core\User\UserInterface" field="owner">
             <join-column name="owner_id" referenced-column-name="id" on-delete="SET NULL" />
          </many-to-one>
     </entity>
-
 </doctrine-mapping>
