@@ -9,7 +9,7 @@ use Videni\Bundle\FileBundle\Metadata\MetadataReader;
 
 /**
  * Remove host from entity file properties, the host will be added to
- * these properties when when serialization
+ * these properties when serialization
  */
 class FileEventListener
 {

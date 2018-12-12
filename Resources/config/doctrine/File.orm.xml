@@ -9,9 +9,5 @@
         <field name="originalName" column="original_name" type="string" nullable="true" />
         <field name="mineType" column="mine_type" type="string" nullable="false" />
         <field name="createdAt" column="created_at" type="datetime" />
-
-        <many-to-one target-entity="Symfony\Component\Security\Core\User\UserInterface" field="owner">
-            <join-column name="owner_id" referenced-column-name="id" on-delete="SET NULL" />
-         </many-to-one>
     </entity>
 </doctrine-mapping>

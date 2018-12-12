@@ -10,7 +10,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 
-final class VideniFileExtension extends Extension implements PrependExtensionInterface
+final class VideniFileExtension extends Extension
 {
     /**
      * {@inheritdoc}
@@ -45,19 +45,5 @@ final class VideniFileExtension extends Extension implements PrependExtensionInt
         } else {
             $container->setAlias('videni_file.metadata.cache', new Alias($config['metadata']['cache'], false));
         }
-    }
-
-    public function prepend(ContainerBuilder $container)
-    {
-        $configs = $container->getExtensionConfig($this->getAlias());
-        $config = $this->processConfiguration(new Configuration(), $configs);
-
-        $container->prependExtensionConfig('doctrine', [
-                'orm' => [
-                    'resolve_target_entities' => [
-                        UserInterface::class => $config['user_entity_class'],
-                    ]
-                ]
-        ]);
     }
 }

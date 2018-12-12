@@ -30,9 +30,6 @@ final class Configuration implements ConfigurationInterface
                 ->scalarNode('asset_endpoint')
                     ->isRequired()
                 ->end()
-                ->scalarNode('user_entity_class')
-                    ->isRequired()
-                ->end()
             ->end()
         ;
 

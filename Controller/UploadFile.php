@@ -19,18 +19,15 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class UploadFile
 {
     private $entityManager;
-    private $tokenStorage;
     private $validator;
     private $serializer;
 
     public function __construct(
         ObjectManager $entityManager,
-        TokenStorageInterface  $tokenStorage,
         ValidatorInterface  $validator,
         SerializerInterface  $serializer
     ) {
         $this->entityManager = $entityManager;
-        $this->tokenStorage = $tokenStorage;
         $this->validator = $validator;
         $this->serializer = $serializer;
     }
@@ -68,9 +65,6 @@ class UploadFile
             ->setMineType($uploadedFile->getMimeType())
             ->setOriginalName($uploadedFile->getClientOriginalName())
         ;
-        if ($user = $this->getUser()) {
-            $file->setOwner($user);
-        }
 
         $this->entityManager->persist($file);
         $this->entityManager->flush();
@@ -79,22 +73,5 @@ class UploadFile
 
         return $response
             ->setJson($this->serializer->serialize($file, 'json', $context->setGroups(['Default'])));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    private function getUser()
-    {
-        $result = null;
-        $token = $this->tokenStorage->getToken();
-        if ($token instanceof TokenInterface) {
-            $user = $token->getUser();
-            if ($user instanceof UserInterface) {
-                $result = $user;
-            }
-        }
-
-        return $result;
     }
 }

@@ -39,7 +39,6 @@ videni_file:
     user_entity_class: 'App\Entity\User'
 ```
 
-
 # How to use?
 
 Add file annotation to an entity
