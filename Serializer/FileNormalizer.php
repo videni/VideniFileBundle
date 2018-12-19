@@ -11,6 +11,8 @@ class FileNormalizer implements EventSubscriberInterface
 {
     private $fileHelper;
 
+    private $called = [];
+
     public function __construct(FileHelper $fileHelper)
     {
         $this->fileHelper = $fileHelper;
@@ -31,6 +33,11 @@ class FileNormalizer implements EventSubscriberInterface
     public function onPostSerialize(ObjectEvent $event)
     {
         $object = $event->getObject();
+        if (array_key_exists(spl_object_hash($object), $this->called)) {
+            return;
+        }
+
+        $this->called[spl_object_hash($object)] = true;
 
         if ($this->fileHelper->isUploadableEntity($object)) {
             $this->fileHelper->prependPrefix($object);

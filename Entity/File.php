@@ -5,19 +5,14 @@ namespace Videni\Bundle\FileBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Videni\Bundle\FileBundle\Annotation as FileAnnoation;
 
 /**
  * @Vich\Uploadable
- * @FileAnnoation\File()
  */
 class File
 {
     protected $id;
 
-    /**
-     * @FileAnnoation\Link()
-     */
     protected $path;
 
     protected $mineType;
