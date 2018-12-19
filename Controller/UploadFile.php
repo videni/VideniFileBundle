@@ -55,7 +55,7 @@ class UploadFile
         $violations = $this->validator->validate($request->files->all(), $constraints);
         if (0 != count($violations)) {
             return $response
-                ->setJson($this->serializer->serialize($violations), 'json');
+                ->setJson($this->serializer->serialize($violations, 'json'));
         }
 
         $uploadedFile = $request->files->get('file');
