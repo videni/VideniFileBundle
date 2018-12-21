@@ -30,6 +30,9 @@ final class Configuration implements ConfigurationInterface
                 ->scalarNode('asset_endpoint')
                     ->isRequired()
                 ->end()
+                ->arrayNode('file_options')
+                    ->variablePrototype()->end()
+                ->end()
             ->end()
         ;
 

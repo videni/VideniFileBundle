@@ -21,15 +21,18 @@ class UploadFile
     private $entityManager;
     private $validator;
     private $serializer;
+    private $fileOptions = [];
 
     public function __construct(
         ObjectManager $entityManager,
         ValidatorInterface  $validator,
-        SerializerInterface  $serializer
+        SerializerInterface  $serializer,
+        $fileOptions
     ) {
         $this->entityManager = $entityManager;
         $this->validator = $validator;
         $this->serializer = $serializer;
+        $this->fileOptions = $fileOptions;
     }
 
     /**
@@ -43,9 +46,7 @@ class UploadFile
     {
         $constraints = new Assert\Collection([
             'file' => [
-                 new Assert\File([
-                    'maxSize' => '50M'
-                 ]),
+                 new Assert\File($this->fileOptions),
                 new Assert\NotBlank(),
             ]
         ]);

@@ -26,6 +26,8 @@ final class VideniFileExtension extends Extension
         $container->setParameter('videni_file.asset_endpoint', $config['asset_endpoint']);
 
         $this->registerCacheStrategy($container, $config);
+
+        $container->setParameter('videni_file.file_options', $config['file_options']);
     }
 
     protected function registerCacheStrategy(ContainerBuilder $container, array $config): void

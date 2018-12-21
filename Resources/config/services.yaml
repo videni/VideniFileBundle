@@ -10,8 +10,12 @@ services:
     Videni\Bundle\FileBundle\:
         resource: '../../{Repository,DataFixtures,Command}'
 
-    Videni\Bundle\FileBundle\Controller\:
-        resource: '../../Controller'
+    Videni\Bundle\FileBundle\Controller\UploadFile:
+        arguments:
+            - '@Doctrine\Common\Persistence\ObjectManager'
+            - '@Symfony\Component\Validator\Validator\ValidatorInterface'
+            - '@JMS\Serializer\SerializerInterface'
+            - '%videni_file.file_options%'
         tags: ['controller.service_arguments']
 
     Videni\Bundle\FileBundle\EventListener\FileEventListener:
