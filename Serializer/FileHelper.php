@@ -43,7 +43,11 @@ class FileHelper
         $fields = $this->fileMetadataReader->getLinks(get_class($object));
         foreach ($fields as $name => $field) {
             if ($field['absolute']) {
-                $propertyAccessor->setValue($object, $name, $this->host. $propertyAccessor->getValue($object, $name));
+                $oldValue = $propertyAccessor->getValue($object, $name);
+                if(empty($oldValue)) {
+                    continue;
+                }
+                $propertyAccessor->setValue($object, $name, $this->host.$oldValue);
             }
         }
     }
